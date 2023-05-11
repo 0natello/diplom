@@ -1,0 +1,30 @@
+1. Создать бота в Telegram и получить его токен.
+2. Добавить бота в нужный чат или создать новый чат для уведомлений.
+3. В интерфейсе Zabbix перейти в раздел "Administration" и выбрать пункт "Media types".
+4. Нажать на кнопку "Create media type" и заполнить поля следующим образом:
+- Name: Telegram
+- Type: Script
+- Script name: telegram.sh (или любое другое название)
+- Script parameters:
+
+{ALERT.SENDTO}
+{ALERT.SUBJECT}
+{ALERT.MESSAGE}
+
+- Script path: /usr/lib/zabbix/alertscripts/telegram.sh (или любой другой путь, где будет храниться скрипт)
+
+5. В поле "Script" вставить следующий код:
+
+
+#!/bin/bash
+TOKEN="<telegram_bot_token>"
+CHAT_ID="<telegram_chat_id>"
+TEXT="$3"
+URL="https://api.telegram.org/bot$TOKEN/sendMessage"
+curl -s -X POST $URL -d chat_id=$CHAT_ID -d text="$TEXT" > /dev/null
+
+
+Заменить <telegram_bot_token> на токен бота, а <telegram_chat_id> на ID чата.
+6. Сохранить настройки.
+
+После этого можно добавить новый тип уведомления в настройках триггеров и указать в качестве адресата нужный Telegram-чат.
