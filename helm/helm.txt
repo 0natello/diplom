@@ -1,0 +1,25 @@
+Инструкция по установке helm
+
+Установите kubectl, если еще этого не сделали, c помощью этих команд:
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update
+sudo apt-get install kubectl
+Добавьте официальный репозиторий helm в вашу систему Ubuntu:
+wget https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz
+tar -zxvf helm-v3.7.0-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin/helm
+После установки helm, можно выполнить команду и проверить, что все работает:
+helm version
+Теперь добавьте официальный репозиторий stable:
+helm repo add stable https://charts.helm.sh/stable
+Обновите список доступных пакетов helm:
+helm repo update
+Установить Tiller, серверную часть Helm, на кластер Kubernetes:
+kubectl create serviceaccount tiller -n kube-system
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account tiller
+Проверить правильность установки Tiller в кластере Kubernetes, используя команду:
+kubectl get pods --namespace kube-system
+Результат выполнения должен содержать запись tiller-deploy.
