@@ -1,0 +1,9 @@
+# app.yml
+- hosts: all
+  become: true
+  tasks:
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        update_cache: yes
+      tags: [docker_compose]

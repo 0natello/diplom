@@ -1,0 +1,9 @@
+#cloud-config
+users:
+  - name: aionov
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh_authorized_keys:
+        ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqHwgS2Id40cCGgps87OfjOTWJb0A3ilqOha1Ak/w2TJv6EjHU5SojuWbDJg//HWAOR7PxdFXD2tyVQQZa2Kb6NyKi7p8PoUTJKu52fznHdFZUZXKkbODztZ9fS2uwhFPsGXh5VXte1ibI0Y3Tf4WowNAgEDK6czr/+zb8Kt/TQWbcIIHPq6N0CqGbqkYLYPRwAyUEqZlBNVOeDjKOs4XY7U4G19oP2ZSsZurWwgxmSGfmIVybtGUHtsljms0q3np0U8Vv5AEWdDyl8iZoOL4fcBfQJe9SHZpEahXGiT/v0hzbd5LZdkdGmIHSTtBQr8OvymkVCQYyqWURCu0FcOn1 user@astra
+
