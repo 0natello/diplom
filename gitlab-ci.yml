@@ -1,0 +1,24 @@
+image: docker:latest
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:18.09.7-dind
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE/my-image .
+    - docker push $CI_REGISTRY_IMAGE/my-image
+
+deploy:
+  stage: deploy
+  script:
+    - docker pull $CI_REGISTRY_IMAGE/my-image
+    - docker run $CI_REGISTRY_IMAGE/my-image
+    - helm upgrade --install my-release ./my-chart --set image.repository=$CI_REGISTRY_IMAGE --set ingress.enabled=true --set ingress.hosts=192.168.0.24 --set ingress.tls[0].secretName={$CERT_SECRET_NAME} --set ingress.tls[0].hosts=192.168.0.24
