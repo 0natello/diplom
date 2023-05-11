@@ -1,0 +1,1 @@
+После скрипта grafana.sh необхоидо добавить Dashbord, для этого необходимо скачать файл Monitoring_podsistemy_pokazately.json и добавить его в Grafana
